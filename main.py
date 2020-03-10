@@ -1,9 +1,9 @@
 import datetime
-from flask import Flask, render_template, request, make_response, session
+from flask import Flask, render_template, request, make_response, session, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.exceptions import abort
 from werkzeug.utils import redirect
-from data import db_session
+from data import db_session, news_api
 from data.LoginForm import LoginForm
 from data.NewsForm import NewsForm
 from data.RegisterForm import RegisterForm
@@ -20,6 +20,7 @@ login_manager.init_app(app)
 
 def main():
     db_session.global_init("db/blogs.sqlite")
+    app.register_blueprint(news_api.blueprint)
     session = db_session.create_session()
     # news = News(title='Первая новость', content='Privet!', user_id=1, is_private=False)
     # session.add(news)
@@ -28,7 +29,7 @@ def main():
     # session.add(news)
     # news = News(title='Top secret', content='Summer is coming!', is_private=True)
     # user.news.append(news)
-    session.commit()
+    # session.commit()
     app.run()
 
 
@@ -181,6 +182,10 @@ def news_delete(id):
     else:
         abort(404)
     return redirect('/')
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 if __name__ == '__main__':
     main()
