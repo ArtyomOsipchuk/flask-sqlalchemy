@@ -170,6 +170,7 @@ def edit_news(id):
             abort(404)
     return render_template('news.html', title='Редактирование новости', form=form)
 
+
 @app.route('/news_delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def news_delete(id):
@@ -183,9 +184,11 @@ def news_delete(id):
         abort(404)
     return redirect('/')
 
+
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
+
 
 if __name__ == '__main__':
     main()

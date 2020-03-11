@@ -8,7 +8,6 @@ from .db_session import SqlAlchemyBase
 
 class News(SqlAlchemyBase, SerializerMixin):
     __tablename__ = 'news'
-
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
     title = sqlalchemy.Column(sqlalchemy.String, nullable=True)
