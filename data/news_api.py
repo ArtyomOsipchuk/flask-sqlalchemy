@@ -68,9 +68,10 @@ def delete_news(news_id):
 
 @blueprint.route('/api/news/<int:news_id>', methods=['PUT'])
 def change_news(news_id):
+    print('Pobeda!')
     session = db_session.create_session()
     news = session.query(News).get(news_id)
-    if not news:
+    if not news or not request.json():
         return jsonify({'error': 'Not found'})
     for keys in request.json():
         print(keys)

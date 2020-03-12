@@ -20,5 +20,6 @@ from pprint import pprint
 #                 'is_private': False,
 #                'is_published': True}).json())
 
-print(put('http://localhost:5000/api/news/2',
-          json={'title': 'Новый заголовок этой новости', 'content': 'Текст новости'}).json())
+print(put('http://localhost:5000/api/news/3',
+          json=[{'title': 'Новый заголовок этой новости',
+                 'content': 'Текст новости'}]).json())
